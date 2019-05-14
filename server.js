@@ -18,6 +18,8 @@ async function jwtCheck(req, res, next) {
       if (err) {
         res.status(401).json(err);
       }
+      console.log(token);
+      next();
     });
   } else {
     res.status(400).json({ Error: "Not authorized" });
