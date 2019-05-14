@@ -14,12 +14,13 @@ server.use(express.json(), helm(), cors());
 async function jwtCheck(req, res, next) {
   const token = req.get("authorize");
   if (token) {
+    console.log(jwtKey);
     await jwt.verify(token, jwtKey, (err, decoded) => {
       if (err) {
         res.status(401).json(err);
       }
-      next();
     });
+    next();
   } else {
     res.status(400).json({ Error: "Not authorized" });
   }
