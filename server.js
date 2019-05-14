@@ -16,11 +16,12 @@ async function jwtCheck(req, res, next) {
   if (token) {
     console.log(jwtKey);
     await jwt.verify(token, jwtKey, (err, decoded) => {
-      if (err) {
+      if (!err) {
+        next();
+      } else {
         res.status(401).json(err);
       }
     });
-    next();
   } else {
     res.status(400).json({ Error: "Not authorized" });
   }
