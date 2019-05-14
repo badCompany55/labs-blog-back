@@ -18,6 +18,16 @@ async function create(req, res) {
   }
 }
 
+async function getUser(username) {
+  try {
+    const userquery = `SELECT * FROM users where username=$1`;
+    const user = await db(userquery, [username]);
+    return user;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 async function getAll(req, res) {
   const getAll = `SELECT * FROM posts`;
   try {
@@ -75,5 +85,6 @@ module.exports = {
   create,
   getAll,
   edit,
-  deletepost
+  deletepost,
+  getUser
 };
